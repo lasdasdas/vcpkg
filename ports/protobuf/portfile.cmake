@@ -1,13 +1,10 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO protocolbuffers/protobuf
-    REF fde7cf7358ec7cd69e8db9be4f1fa6a5c431386a    #v3.13.0
-    SHA512 b458410311a0905048c86d70ded263ae0cbb6693fd42cba730d3a95c69ca533cf453eb15c5f8bf8b00003ddc63fe96b3c4242907e2d6b00d5bec5d37b2ae1c5e
+    REF cb6fa92ee8f924e8c524efdbe502858e97e6975d    #v3.7-fix
+    SHA512 6b09fc45fca9142f15beeee128d35a29f7762341ea95d287f00e3ddf4f363f7f0abf3d06839a6aa8e2443028a06e5bda4c574382b8f6b823f3616cb16997dc03
     HEAD_REF master
-    PATCHES
-        fix-uwp.patch
-        fix-android-log.patch
-        fix-static-build.patch
+
 )
 
 if(CMAKE_HOST_WIN32 AND NOT VCPKG_TARGET_ARCHITECTURE MATCHES "x64" AND NOT VCPKG_TARGET_ARCHITECTURE MATCHES "x86")

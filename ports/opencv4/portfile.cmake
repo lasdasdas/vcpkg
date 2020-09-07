@@ -351,7 +351,7 @@ vcpkg_configure_cmake(
         -DWITH_IPP=${WITH_IPP}
         -DWITH_MSMF=${WITH_MSMF}
         -DWITH_OPENMP=${WITH_OPENMP}
-        -DWITH_PROTOBUF=ON
+        -DWITH_PROTOBUF=OFF
         -DWITH_TBB=${WITH_TBB}
         -DWITH_VTK=${WITH_VTK}
         -DWITH_OPENJPEG=OFF
