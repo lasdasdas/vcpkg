@@ -63,7 +63,7 @@ install(TARGETS ${TARGET}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     )
-install(DIRECTORY include/ DESTINATION include 
+install(DIRECTORY include/ DESTINATION include
     CONFIGURATIONS Release
     PATTERN "doc" EXCLUDE
     PATTERN "*.am" EXCLUDE

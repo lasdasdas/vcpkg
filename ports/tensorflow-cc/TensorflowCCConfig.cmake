@@ -11,7 +11,7 @@ set(tensorflow_cc_INCLUDE_DIRS
 )
 
 add_library(tensorflow_cc::tensorflow_framework SHARED IMPORTED)
-set_target_properties(tensorflow_cc::tensorflow_framework 
+set_target_properties(tensorflow_cc::tensorflow_framework
 	PROPERTIES
 	IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/../../lib/libtensorflow_framework.so.1.14.0
 	INTERFACE_INCLUDE_DIRECTORIES "${tensorflow_cc_INCLUDE_DIRS}"
@@ -19,7 +19,7 @@ set_target_properties(tensorflow_cc::tensorflow_framework
 
 add_library(tensorflow_cc::tensorflow_cc SHARED IMPORTED)
 set_target_properties(tensorflow_cc::tensorflow_cc
-	PROPERTIES 
+	PROPERTIES
 	IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/../../lib/libtensorflow_cc.so.1.14.0
 	INTERFACE_INCLUDE_DIRECTORIES "${tensorflow_cc_INCLUDE_DIRS}"
 )
