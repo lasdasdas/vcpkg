@@ -1,0 +1,9 @@
+# Improvements
+
+opencv-protobuf depends only on nn module.
+
+tensorflow framework is not being built
+tensorflow depends on files on buildtrees
+tensorflwo targets do not work on Windows
+
+pcl qhull dep is not being built smoothly

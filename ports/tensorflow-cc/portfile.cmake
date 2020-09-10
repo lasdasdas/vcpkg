@@ -98,12 +98,13 @@ if(CMAKE_HOST_WIN32)
     )
 else()
     vcpkg_execute_build_process(
-        COMMAND adf ${BAZEL} build --local_resources 2048.0,1.0,0.25 --verbose_failures -c opt --python_path=${PYTHON3} --incompatible_disable_deprecated_attr_params=false --define=no_tensorflow_py_deps=true //tensorflow:libtensorflow_cc.so //tensorflow:libtensorflow_framework.so //tensorflow:install_headers
+        COMMAND  ${BAZEL} build --local_resources 2048.0,1.0,0.25 --verbose_failures -c opt --python_path=${PYTHON3} --incompatible_disable_deprecated_attr_params=false --define=no_tensorflow_py_deps=true //tensorflow:libtensorflow_cc.so //tensorflow:libtensorflow_framework.so //tensorflow:install_headers
         WORKING_DIRECTORY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel
         LOGNAME build-${TARGET_TRIPLET}-rel
     )
 endif()
 
+file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/include/tensorflow-external)
 file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-genfiles/tensorflow/include/ DESTINATION ${CURRENT_PACKAGES_DIR}/include/tensorflow-external)
 
 if(CMAKE_HOST_WIN32)
@@ -117,6 +118,8 @@ else()
     file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-bin/tensorflow/libtensorflow_cc.so.1.14.0 DESTINATION ${CURRENT_PACKAGES_DIR}/debug/lib)
     file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-bin/tensorflow/libtensorflow_framework.so.1.14.0 DESTINATION ${CURRENT_PACKAGES_DIR}/debug/lib)
 endif()
+
+file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-bin/tensorflow/include/bazel-out/x64_windows-opt/bin/ DESTINATION ${CURRENT_PACKAGES_DIR}/tensorflow/include/bazel-out/x64_windows-opt/bin/)
 
 file(COPY ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/tensorflow-cc)
 file(RENAME ${CURRENT_PACKAGES_DIR}/share/tensorflow-cc/LICENSE ${CURRENT_PACKAGES_DIR}/share/tensorflow-cc/copyright)
