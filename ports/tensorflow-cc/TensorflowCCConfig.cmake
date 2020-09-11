@@ -8,7 +8,9 @@ set(tensorflow_cc_INCLUDE_DIRS
 	${tensorflow_cc_INCLUDE_DIR}/tensorflow-external/external/com_google_absl
 	${tensorflow_cc_INCLUDE_DIR}/tensorflow-external/bazel-out/k8-opt/bin/
 	${tensorflow_cc_INCLUDE_DIR}/tensorflow-external/external/protobuf_archive/src/
-	${tensorflow_cc_INCLUDE_DIR}/tensorflow-external/bazel-out/${TARGET_TRIPLET}-opt/bin/
+	#${tensorflow_cc_INCLUDE_DIR}/tensorflow-external/bazel-out/${TARGET_TRIPLET}-opt/bin/
+	${tensorflow_cc_INCLUDE_DIR}/../extra_includes/
+	${tensorflow_cc_INCLUDE_DIR}/tensorflow-external/bazel-out/x64_windows-opt/bin/
 )
 
 add_library(tensorflow_cc::tensorflow_framework SHARED IMPORTED)

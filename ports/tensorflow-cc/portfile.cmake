@@ -98,14 +98,18 @@ if(CMAKE_HOST_WIN32)
     )
 else()
     vcpkg_execute_build_process(
-        COMMAND  ${BAZEL} build --local_resources 2048.0,1.0,0.25 --verbose_failures -c opt --python_path=${PYTHON3} --incompatible_disable_deprecated_attr_params=false --define=no_tensorflow_py_deps=true //tensorflow:libtensorflow_cc.so //tensorflow:libtensorflow_framework.so //tensorflow:install_headers
+        COMMAND  ${BAZEL} build  --verbose_failures -c opt --python_path=${PYTHON3} --incompatible_disable_deprecated_attr_params=false --define=no_tensorflow_py_deps=true //tensorflow:libtensorflow_cc.so //tensorflow:libtensorflow_framework.so //tensorflow:install_headers
         WORKING_DIRECTORY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel
         LOGNAME build-${TARGET_TRIPLET}-rel
     )
 endif()
+# --local_resources 2048.0,1.0,0.25
 
 file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/include/tensorflow-external)
 file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-genfiles/tensorflow/include/ DESTINATION ${CURRENT_PACKAGES_DIR}/include/tensorflow-external)
+
+
+file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-bin/tensorflow/include/bazel-out/x64_windows-opt/bin/ DESTINATION ${CURRENT_PACKAGES_DIR}/tensorflow/include/bazel-out/x64_windows-opt/bin/)
 
 if(CMAKE_HOST_WIN32)
     file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-bin/tensorflow/libtensorflow_cc.so.1.14.0 DESTINATION ${CURRENT_PACKAGES_DIR}/lib)
@@ -119,10 +123,22 @@ else()
     file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-bin/tensorflow/libtensorflow_framework.so.1.14.0 DESTINATION ${CURRENT_PACKAGES_DIR}/debug/lib)
 endif()
 
-file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-bin/tensorflow/include/bazel-out/x64_windows-opt/bin/ DESTINATION ${CURRENT_PACKAGES_DIR}/tensorflow/include/bazel-out/x64_windows-opt/bin/)
 
+#E:\vcpkg\vcpkg\buildtrees\tensorflow-cc\x64-windows-rel\bazel-bin\tensorflow\core
+#E:/vcpkg/vcpkg/buildtrees/tensorflow-cc/x64-windows-rel/bazel-bin/tensorflow/include/bazel-out/x64-windows-opt/bin
+
+
+file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-bin/tensorflow/core/framework DESTINATION ${CURRENT_INSTALLED_DIR}/extra_includes/tensorflow/core)
 file(COPY ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/tensorflow-cc)
 file(RENAME ${CURRENT_PACKAGES_DIR}/share/tensorflow-cc/LICENSE ${CURRENT_PACKAGES_DIR}/share/tensorflow-cc/copyright)
-
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/TensorflowCCConfig.cmake DESTINATION ${CURRENT_PACKAGES_DIR}/share/unofficial-tensorflow-cc)
 file(RENAME ${CURRENT_PACKAGES_DIR}/share/unofficial-tensorflow-cc/TensorflowCCConfig.cmake ${CURRENT_PACKAGES_DIR}/share/unofficial-tensorflow-cc/unofficial-tensorflow-cc-config.cmake)
+
+
+
+# old
+#file(COPY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/bazel-bin/tensorflow/include/bazel-out/x64_windows-opt/bin/ DESTINATION ${CURRENT_PACKAGES_DIR}/tensorflow/include/bazel-out/x64_windows-opt/bin/)
+#file(COPY ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/tensorflow-cc)
+#file(RENAME ${CURRENT_PACKAGES_DIR}/share/tensorflow-cc/LICENSE ${CURRENT_PACKAGES_DIR}/share/tensorflow-cc/copyright)
+#file(COPY ${CMAKE_CURRENT_LIST_DIR}/TensorflowCCConfig.cmake DESTINATION ${CURRENT_PACKAGES_DIR}/share/unofficial-tensorflow-cc)
+#file(RENAME ${CURRENT_PACKAGES_DIR}/share/unofficial-tensorflow-cc/TensorflowCCConfig.cmake ${CURRENT_PACKAGES_DIR}/share/unofficial-tensorflow-cc/unofficial-tensorflow-cc-config.cmake)
